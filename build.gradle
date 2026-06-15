@@ -1,0 +1,41 @@
+plugins {
+	id 'java-library'
+}
+
+group = 'com.haha.gw'
+version = '1.0.0'
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compileOnly 'org.apache.kafka:connect-api:3.6.0'
+    compileOnly 'org.apache.kafka:connect-transforms:3.6.0'
+
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.0'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+}
+
+jar {
+	manifest {
+		attributes(
+				'Implementation-Title': project.name,
+				'Implementation-Version': project.version
+		)
+	}
+	from {
+		configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+	}
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
