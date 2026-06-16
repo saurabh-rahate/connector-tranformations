@@ -10,8 +10,6 @@ import org.apache.kafka.connect.transforms.Transformation;
 
 import java.util.Map;
 
-import javax.management.RuntimeErrorException;
-
 public class CustomKeyTransform<R extends ConnectRecord<R>> implements Transformation<R> {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
